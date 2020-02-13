@@ -1,0 +1,32 @@
+From c143caca361fa3dc2c20b2c489f5e346e2516737 Mon Sep 17 00:00:00 2001
+From: Anthony Ramine <n.oxyde@gmail.com>
+Date: Thu, 9 Nov 2017 13:20:51 +0100
+Subject: [PATCH] Bump toml to 0.4
+
+---
+ src/lib.rs | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/src/lib.rs b/src/lib.rs
+index 699afce..ed60eb2 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -47,9 +47,12 @@ pub fn probe() -> Result<HashMap<String, Library>> {
+         format!("Error parsing TOML from {}: {:?}", path.display(), e)
+     ));
+     let key = "package.metadata.pkg-config";
+-    let meta = try!(toml.lookup(key).ok_or(
+-        format!("No {} in {}", key, path.display())
+-    ));
++    let meta = try!(
++        toml.get("package")
++            .and_then(|p| p.get("metadata"))
++            .and_then(|p| p.get("pkg-config"))
++            .ok_or_else(|| format!("No {} in {}", key, path.display()))
++    );
+     let table = try!(meta.as_table().ok_or(
+         format!("{} not a table in {}", key, path.display())
+     ));
+-- 
+2.15.1
+

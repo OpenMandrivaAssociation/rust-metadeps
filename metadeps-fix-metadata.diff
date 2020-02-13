@@ -1,0 +1,15 @@
+--- metadeps-1.1.2/Cargo.toml	2017-05-30T08:17:46+02:00
++++ metadeps-1.1.2/Cargo.toml	2019-03-09T15:27:50.283076+01:00
+@@ -9,9 +9,9 @@
+ keywords = ["pkg-config", "build-dependencies", "build-depends", "manifest", "metadata"]
+ 
+ [dependencies]
+-error-chain = { version = "0.10", default-features = false }
++error-chain = { version = "0.12", default-features = false }
+ pkg-config = "0.3.8"
+-toml = { version = "0.2", default-features = false }
++toml = "0.4"
+ 
+ [dev-dependencies]
+-lazy_static = "0.2"
++lazy_static = "1"
